@@ -1,0 +1,4 @@
+set editing-mode vi
+set bell-style none
+
+Control-X: glob-expand-word
