@@ -80,3 +80,7 @@ alias finddata='lsof | grep /Volumes/Data'
 alias secureinput='ioreg -l -w 0 | grep SecureInput'
 
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias setup_vim='mkdir -p $HOME/cache/dein && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- $HOME/.cache/dein'
+alias setup_brew='brew install antibody nvim'
+
+source ~/.profile
