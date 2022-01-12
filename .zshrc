@@ -26,6 +26,7 @@ bindkey "^?" backward-delete-char
 
 setopt menu_complete
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 zmodload zsh/complist
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 
@@ -35,9 +36,10 @@ export VISUAL=vim
 export CLICOLOR=1
 export ZSH_AUTOSUGGEST_STRATEGY=history
 
-export PATH=~/Documents/bin:"$PATH"
+export PATH="/usr/local/sbin:~/Documents/bin:$PATH"
 
 alias ll='ls -l'
+alias la='ls -lA'
 alias zshbundle='antibody bundle <~/.zsh_plugins.txt >~/.zsh_plugins.sh'
 alias gtkwave='/Applications/gtkwave.app/Contents/Resources/bin/gtkwave'
 alias t='tmux new-session -A -s Default'
@@ -56,12 +58,12 @@ potd() {
     done
 }
 
-alias pi='if which pyenv > /dev/null; then eval "$(pyenv init - --no-rehash)"; fi'
+alias pi='if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi'
 alias pm='pyenv shell miniconda3-latest'
-alias p3='pi; pyenv shell 3.8.1'
+alias p3='pi; pyenv shell 3.10.1'
 alias ip='pi; pm; ipython'
 alias 126gh='p3; pushd ~/Documents/uiuc/misc/cs126_ca/repo-fetcher; python repo-fetcher.py --open; popd'
-alias audacity='~/Applications/Audacity.app/Contents/MacOS/Audacity'
+alias audacity='/Applications/Audacity.app/Contents/MacOS/Audacity'
 
 #export MODE_CURSOR_VICMD="block"
 #export MODE_CURSOR_VIINS="blinking bar"
