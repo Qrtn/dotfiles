@@ -37,6 +37,10 @@ if dein#load_state('~/.cache/dein')
  "let g:loaded_netrwPlugin = 1
 endif
 
+if dein#check_install()
+  call dein#install()
+endif
+
 set wildmenu
 set number
 set lazyredraw
