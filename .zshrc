@@ -10,21 +10,15 @@ zgenom autoupdate
 # if the init script doesn't exist
 if ! zgenom saved; then
   # specify plugins here
-  zgenom load romkatv/powerlevel10k powerlevel10k
+  # zgenom load romkatv/powerlevel10k powerlevel10k
   zgenom load zsh-users/zsh-autosuggestions
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-history-substring-search
-  zgenom load softmoth/zsh-vim-mode
+  # zgenom load softmoth/zsh-vim-mode
   zgenom load agkozak/zsh-z
   zgenom load supercrabtree/k
   # generate the init script from plugins above
   zgenom save
-fi
-######
-
-### Load Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 ######
 
@@ -50,7 +44,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 bindkey -M vicmd 'K' history-substring-search-up
 bindkey -M vicmd 'J' history-substring-search-down
-######
+####
 
 # Exports
 export EDITOR=nvim
@@ -62,13 +56,9 @@ export PATH="/Users/jeffrey/Documents/lassie/development/bin:/opt/homebrew/Caskr
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 ###
-
-# Load Powerlevel10k config
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-##
 
 ### Aliases
 alias ez='zgenom update && exec zsh'
@@ -101,7 +91,7 @@ alias gsi='git stash --include-untracked'
 alias gsp='git stash pop'
 alias gstp='gsp'
 alias gp='git push'
-alias gpj="git push; git push origin -f $(git symbolic-ref --short HEAD):jeffrey"
+alias gpj='git push; git push origin -f $(git symbolic-ref --short HEAD):jeffrey'
 alias gpu='git pull'
 alias gpm='git pull origin main'
 alias gpom='gpm'
