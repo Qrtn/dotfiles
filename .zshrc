@@ -85,11 +85,15 @@ alias ip='pi; pm; ipython'
 
 alias setup_vim='mkdir -p $HOME/cache/dein && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- $HOME/.cache/dein'
 
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gg='ga && gca && gp'
 alias gs='git status'
 alias gst='git stash'
 alias gsi='git stash --include-untracked'
 alias gsp='git stash pop'
 alias gstp='gsp'
+alias gnb='gst --include-untracked && gco main && gpom && gsp && gco -b'
 alias gp='git push'
 alias gpj='git push; git push origin -f $(git symbolic-ref --short HEAD):jeffrey'
 alias gpu='git pull'
@@ -102,6 +106,7 @@ alias gcm='git checkout main; git pull'
 alias gcom='gcm'
 alias ga='git add -u'
 alias gas='git add .'
+alias gca='git commit -m add'
 alias gpj='git push origin -f $(git branch --show-current):jeffrey'
 alias gsw='git switch -'
 alias nrg='npm run generate'
@@ -118,6 +123,7 @@ alias gdw='gcloud compute instances attach-disk --disk windows-vm-shared --mode 
 alias gdd='gcloud compute instances detach-disk --disk windows-vm-shared'
 alias prune_agent_server='gcloud compute ssh agent-server --zone us-west2-c --command="docker system prune -af"'
 alias ns='npx ts-node -r dotenv/config -r tsconfig-paths/register'
+alias pr='poetry run python src/main.py'
 alias pra='poetry run poe all'
 ######
 
@@ -128,10 +134,20 @@ function csp() {
 
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)" --header "user-email: jeffrey@golassie.com" --header "Content-Type: application/json"'
 
-alias gacurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token --audiences 612084636142-nrprtntf52b8h8o5aii2tiacvoioend0.apps.googleusercontent.com)" --header "x-api-key: 54ojnw0lqte9nklpd02nk10ln4ge6b0" --header "user-email: jeffrey@golassie.com" --header "Content-Type: application/json"'
+function gcurlp() {
+    gcurl "https://setter-production-2rpjf63lrq-wl.a.run.app/$1" ${@:1}
+}
+function gcurll() {
+    gcurl "http://localhost:8080/$1" ${@:1}
+}
+function gcurlj() {
+    gcurl "https://setter-development-jeffrey-2rpjf63lrq-wl.a.run.app/$1" ${@:1}
+}
+
+alias gacurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token --audiences 612084636142-nrprtntf52b8h8o5aii2tiacvoioend0.apps.googleusercontent.com)" --header "user-email: jeffrey@golassie.com" --header "Content-Type: application/json"'
 
 function scrape() {
-    gcurl -X POST "https://setter-production-2rpjf63lrq-wl.a.run.app/retriever/scrape/remittances" -H 'Content-Type: application/json' -d "{
+    gcurl -X POST "https://setter-production-2rpjf63lrq-wl.a.run.app/retriever/scrape/remittances" -d "{
         \"practiceUuids\": [\"$1\"],
         \"backfillDays\": 60
     }"
@@ -162,3 +178,4 @@ eval "$(pyenv init -)"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export PATH="/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/libpq/bin:$PATH"
