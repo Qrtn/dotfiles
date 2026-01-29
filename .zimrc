@@ -1,0 +1,13 @@
+# Zimfw modules
+
+# Completion
+zmodule zsh-users/zsh-completions --fpath src
+
+# Plugins
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-history-substring-search
+zmodule agkozak/zsh-z
+zmodule supercrabtree/k
+
+# Syntax highlighting (must be last)
+zmodule zsh-users/zsh-syntax-highlighting
