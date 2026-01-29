@@ -6,6 +6,19 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Auto-install missing modules
+if [[ ! -d ${ZIM_HOME}/modules/zsh-autosuggestions ]]; then
+  source ${ZIM_HOME}/zimfw.zsh install
+fi
+# Auto-update weekly (use temp file for timestamp)
+_zim_update_file=${ZIM_HOME}/.last_update
+if [[ ! -f $_zim_update_file ]] || (( $(date +%s) - $(cat $_zim_update_file) > 604800 )); then
+  echo "Updating zimfw modules..."
+  source ${ZIM_HOME}/zimfw.zsh update -q
+  source ${ZIM_HOME}/zimfw.zsh upgrade -q
+  date +%s > $_zim_update_file
+fi
+unset _zim_update_file
 source ${ZIM_HOME}/init.zsh
 
 # Shell options
