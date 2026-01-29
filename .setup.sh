@@ -1,6 +1,8 @@
 #!/bin/zsh
 # macOS setup script
 
+set -e  # Exit on error
+
 # Ask once at the start
 sudo -v
 
@@ -23,18 +25,23 @@ defaults write com.apple.dock autohide -bool true
 killall Dock
 
 # Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Set up Homebrew in current shell
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Install packages from Brewfile
-brew bundle --file=~/.Brewfile
+# Install essentials first
+brew install gh yadm
 
-# GitHub CLI auth
+# GitHub CLI auth (needed for private repos)
 gh auth login
 
-# Clone dotfiles
+# Clone dotfiles (brings in .Brewfile, .zshrc, etc.)
 yadm clone https://github.com/Qrtn/dotfiles
+
+# Install everything from Brewfile
+brew bundle --file=~/.Brewfile
 
 echo "Done! Restart your terminal to apply changes."
