@@ -1,45 +1,29 @@
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
- call dein#begin('~/.cache/dein')
-
- call dein#add('~/.cache/dein')
-
- call dein#add('tmhedberg/SimpylFold')
- "call dein#add('sudar/vim-arduino-syntax')
- "call dein#add('hail2u/vim-css3-syntax')
- "call dein#add('mattn/emmet-vim')
- "call dein#add('FelikZ/ctrlp-py-matcher')
- "call dein#add('kien/ctrlp.vim')
- call dein#add('Raimondi/delimitMate')
- "call dein#add('othree/html5.vim')
- call dein#add('nanotech/jellybeans.vim')
- call dein#add('hdima/python-syntax')
- call dein#add('octol/vim-cpp-enhanced-highlight')
- "call dein#add('4Evergreen4/vim-hardy')
- call dein#add('pangloss/vim-javascript')
- "call dein#add('lepture/vim-jinja')
- "call dein#add('mustache/vim-mustache-handlebars')
- call dein#add('mhinz/vim-startify')
- "call dein#add('vim-scripts/CSS-one-line--multi-line-folding')
- "call dein#add('rizzatti/dash.vim')
- "call dein#add('harenome/vim-mipssyntax')
- call dein#add('ap/vim-buftabline')
- "call dein#add('ap/vim-readdir')
-
- call dein#add('Vimjas/vim-python-pep8-indent')
-
- call dein#local('~/.cache/dein/local')
-
- call dein#end()
- call dein#save_state()
-
- "let g:loaded_netrwPlugin = 1
+" vim-plug auto-install
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+let plug_install = 0
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  let plug_install = 1
 endif
 
-if dein#check_install()
-  call dein#install()
+call plug#begin()
+
+Plug 'tmhedberg/SimpylFold'
+Plug 'Raimondi/delimitMate'
+Plug 'nanotech/jellybeans.vim'
+Plug 'hdima/python-syntax'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'pangloss/vim-javascript'
+Plug 'mhinz/vim-startify'
+Plug 'ap/vim-buftabline'
+Plug 'Vimjas/vim-python-pep8-indent'
+
+call plug#end()
+
+if plug_install
+  PlugInstall --sync
 endif
+unlet plug_install
 
 set wildmenu
 set number
@@ -67,13 +51,9 @@ autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2
 autocmd FileType lua setlocal shiftwidth=2 softtabstop=2
 autocmd FileType asm set noexpandtab softtabstop=0 shiftwidth=0 tabstop=8 fo-=t
-"autocmd BufNewFile,BufRead,BufReadPost *.s set syntax=mips
 
 syntax enable
-
-"if has('gui_running')
-    colorscheme jellybeans
-"endif
+colorscheme jellybeans
 
 if has('win32')
     let $VIMHOME = expand('~/vimfiles')
@@ -92,18 +72,6 @@ set clipboard=unnamed
 
 set noerrorbells visualbell t_vb=
 autocmd ac GUIEnter * set noerrorbells visualbell t_vb=
-
-" if has('win32')
-"     set guifont=DejaVu\ Sans\ Mono:h11
-"     set guioptions-=m
-"     set guioptions-=T
-"     set guioptions-=r guioptions-=R
-"     set guioptions-=r guioptions-=L
-"     set guioptions-=b
-"     set guioptions-=e
-" else
-"     set guifont=Hack\ Nerd\ Font:h12
-" endif
 
 set textwidth=79
 set formatoptions+=t
@@ -160,8 +128,6 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_user_command = 'ag -i --nocolor --nogroup --hidden -g "" %s'
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_reuse_window  = 'startify'
-
-" set viminfo+=n$VIMHOME/viminfo
 
 nmap <silent> <A-h> :wincmd h<CR>
 nmap <silent> <A-j> :wincmd j<CR>
