@@ -1,13 +1,24 @@
 # Zimfw modules
 
-# Completion
+# Prompt (load early)
+zmodule romkatv/powerlevel10k --use degit
+
+# Core modules (order matters)
+zmodule environment
+zmodule input
+
+# Completion definitions (before completion module)
 zmodule zsh-users/zsh-completions --fpath src
+
+# Completion module (after zsh-completions)
+zmodule completion
 
 # Plugins
 zmodule zsh-users/zsh-autosuggestions
 zmodule zsh-users/zsh-history-substring-search
 zmodule agkozak/zsh-z
 zmodule supercrabtree/k
+zmodule lukechilds/zsh-nvm
 
 # Syntax highlighting (must be last)
 zmodule zsh-users/zsh-syntax-highlighting

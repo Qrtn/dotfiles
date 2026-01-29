@@ -1,3 +1,13 @@
+# Powerlevel10k instant prompt (must be at very top)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# NVM (must be set before zimfw loads zsh-nvm)
+export NVM_DIR="$HOME/.nvm"
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
+
 # Zimfw
 ZIM_HOME=~/.zim
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
@@ -30,13 +40,10 @@ setopt autopushd
 setopt menu_complete
 setopt share_history
 
-# Completion
-zstyle :compinstall filename '/Users/jeffrey/.zshrc'
+# Completion styles (zimfw handles compinit)
+zmodload zsh/complist
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
-zmodload zsh/complist
-autoload -Uz compinit
-compinit
 
 # Vi mode
 bindkey -v
@@ -71,11 +78,6 @@ export PATH="/opt/homebrew/opt/openvpn/sbin:/opt/homebrew/opt/mysql-client/bin:/
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # Aliases - Shell
 alias ez='zimfw update && exec zsh'
@@ -173,3 +175,6 @@ function scrape() {
         \"backfillDays\": 60
     }"
 }
+
+# Powerlevel10k config
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
