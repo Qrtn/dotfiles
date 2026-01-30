@@ -19,6 +19,7 @@ zmodule zsh-users/zsh-history-substring-search
 zmodule agkozak/zsh-z
 zmodule supercrabtree/k
 zmodule lukechilds/zsh-nvm
+zmodule jeffreytse/zsh-vi-mode
 
 # Syntax highlighting (must be last)
 zmodule zsh-users/zsh-syntax-highlighting

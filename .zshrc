@@ -45,20 +45,6 @@ zmodload zsh/complist
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
-# Vi mode
-bindkey -v
-KEYTIMEOUT=1
-bindkey -M menuselect '^[[Z' reverse-menu-complete
-bindkey -M vicmd 'K' history-substring-search-up
-bindkey -M vicmd 'J' history-substring-search-down
-
-MODE_CURSOR_VIINS="blinking bar"
-MODE_CURSOR_REPLACE="steady underline"
-MODE_CURSOR_VICMD="block"
-MODE_CURSOR_SEARCH="steady underline"
-MODE_CURSOR_VISUAL="steady bar"
-MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL"
-
 # History
 HISTFILE=~/.histfile
 HISTSIZE=999999999
