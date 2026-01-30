@@ -52,4 +52,7 @@ yadm clone https://github.com/Qrtn/dotfiles
 # Install everything from Brewfile
 brew bundle --file=~/.Brewfile
 
+# Install Claude Code
+npm install -g @anthropic-ai/claude-code
+
 echo "Done! Restart your terminal to apply changes."
