@@ -58,11 +58,6 @@ export PATH="/Users/jeffrey/.local/bin:/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/openvpn/sbin:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/libpq/bin:$PATH"
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 # Aliases - Shell
 alias ez='zimfw update && exec zsh'
 alias sz='source ~/.zshrc'
@@ -87,10 +82,6 @@ alias vim='nvim'
 alias setup_vim='mkdir -p $HOME/cache/dein && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- $HOME/.cache/dein'
 
 # Aliases - Python
-alias pi='if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi'
-alias pm='pyenv shell miniconda3-latest'
-alias p3='pi; pyenv shell 3.10.1'
-alias ip='pi; pm; ipython'
 alias pr='poetry run python src/main.py'
 alias pra='poetry run poe all'
 

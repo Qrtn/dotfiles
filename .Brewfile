@@ -21,7 +21,6 @@ brew "yq"
 brew "nvm"
 brew "pipx"
 brew "pnpm"
-brew "pyenv"
 
 # CLI Tools - Kubernetes/DevOps
 brew "argocd"
