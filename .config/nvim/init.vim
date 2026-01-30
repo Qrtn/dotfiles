@@ -25,6 +25,11 @@ if plug_install
 endif
 unlet plug_install
 
+" Auto-install missing plugins on startup
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
 " ====================
 " General
 " ====================
