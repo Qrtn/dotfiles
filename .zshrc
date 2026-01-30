@@ -3,11 +3,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# NVM (must be set before zimfw loads zsh-nvm)
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
-
 # Zimfw
 ZIM_HOME=~/.zim
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
@@ -55,8 +50,10 @@ export EDITOR=nvim
 export VISUAL="$EDITOR"
 export CLICOLOR=1
 
+# fnm (fast node manager)
+eval "$(fnm env)"
+
 # Path
-export PATH="$HOME/.nvm/versions/node/v22.13.0/bin:$PATH"
 export PATH="/Users/jeffrey/.local/bin:/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/openvpn/sbin:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/libpq/bin:$PATH"
@@ -131,6 +128,9 @@ alias nw='nrw'
 alias nrl='npm run lint'
 alias nl='nrl'
 alias ns='npx ts-node -r dotenv/config -r tsconfig-paths/register'
+
+# Aliases - Claude
+alias claude='claude --dangerously-skip-permissions'
 
 # Aliases - GCloud
 alias gda='gcloud compute instances attach-disk --disk windows-vm-shared --mode ro'
