@@ -53,6 +53,6 @@ yadm clone https://github.com/Qrtn/dotfiles
 brew bundle --file=~/.Brewfile
 
 # Install Claude Code
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
 
 echo "Done! Restart your terminal to apply changes."
