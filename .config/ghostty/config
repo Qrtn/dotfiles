@@ -1,2 +1,3 @@
 theme = Zenwritten Dark
 keybind = shift+enter=text:\x1b\x0d
+desktop-notifications = true
