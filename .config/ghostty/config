@@ -1,3 +1,13 @@
 theme = Zenwritten Dark
 keybind = shift+enter=text:\x1b\x0d
+keybind = ctrl+one=text:\x021
+keybind = ctrl+two=text:\x022
+keybind = ctrl+three=text:\x023
+keybind = ctrl+four=text:\x024
+keybind = ctrl+five=text:\x025
+keybind = ctrl+six=text:\x026
+keybind = ctrl+seven=text:\x027
+keybind = ctrl+eight=text:\x028
+keybind = ctrl+nine=text:\x029
 desktop-notifications = true
+window-save-state = always
