@@ -56,8 +56,9 @@ export VISUAL="$EDITOR"
 export CLICOLOR=1
 
 # Path
+export PATH="$HOME/.nvm/versions/node/v22.13.0/bin:$PATH"
 export PATH="/Users/jeffrey/.local/bin:/opt/homebrew/bin:$PATH"
-export PATH="/Users/jeffrey/Documents/lassie/development/bin:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/openvpn/sbin:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Pyenv
