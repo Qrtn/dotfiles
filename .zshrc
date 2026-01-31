@@ -60,7 +60,7 @@ export PATH="/opt/homebrew/opt/openvpn/sbin:/opt/homebrew/opt/mysql-client/bin:/
 
 # Aliases - Shell
 alias ez='zimfw update && exec zsh'
-alias sz='source ~/.zshrc'
+alias sz='exec zsh'
 alias vz='vi ~/.zshrc'
 
 # Aliases - Files
@@ -156,3 +156,5 @@ function scrape() {
 
 # Powerlevel10k config
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+export PATH="$HOME/.local/bin:$PATH"
+alias codex="codex --dangerously-bypass-approvals-and-sandbox"
