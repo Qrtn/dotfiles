@@ -1,0 +1,15 @@
+{
+  "window.commandCenter": true,
+  "workbench.colorTheme": "Default Light Modern",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.iconTheme": "material-icon-theme",
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "files.autoSave": "afterDelay",
+  "claudeCode.preferredLocation": "sidebar",
+  "vim.useSystemClipboard": true
+}

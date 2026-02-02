@@ -1,0 +1,9 @@
+# Disable sync - fully offline
+sync_frequency = "0"
+
+# Up arrow = per-session (per tmux pane), Ctrl+R = global
+filter_mode_shell_up_key = "session"
+filter_mode = "global"
+
+# Store history in plaintext locally for fast search
+search_mode = "fuzzy"

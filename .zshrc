@@ -154,6 +154,13 @@ function scrape() {
     }"
 }
 
+# Atuin
+eval "$(atuin init zsh)"
+# Stable per-pane session ID so history survives tmux-resurrect
+if [[ -n "$TMUX" ]]; then
+  export ATUIN_SESSION="tmux_$(tmux display-message -p '#{session_name}_w#{window_index}_p#{pane_index}')"
+fi
+
 # Powerlevel10k config
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 export PATH="$HOME/.local/bin:$PATH"
