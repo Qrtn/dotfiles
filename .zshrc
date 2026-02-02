@@ -51,7 +51,7 @@ export VISUAL="$EDITOR"
 export CLICOLOR=1
 
 # fnm (fast node manager)
-eval "$(fnm env)"
+eval "$(fnm env --use-on-cd)"
 
 # Path
 export PATH="/Users/jeffrey/.local/bin:/opt/homebrew/bin:$PATH"
