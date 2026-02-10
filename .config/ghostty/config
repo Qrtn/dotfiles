@@ -1,4 +1,3 @@
-theme = Zenwritten Dark
 keybind = shift+enter=text:\x1b\x0d
 keybind = ctrl+one=text:\x021
 keybind = ctrl+two=text:\x022
