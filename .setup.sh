@@ -24,6 +24,8 @@ defaults write -g InitialKeyRepeat -int 15
 defaults write -g com.apple.swipescrolldirection -bool false
 defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 killall cfprefsd
 killall SystemUIServer
 
