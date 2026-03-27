@@ -52,6 +52,7 @@ cask "datagrip"
 cask "docker-desktop"
 cask "gcloud-cli"
 cask "ghostty"
+cask "hammerspoon"
 cask "lens"
 
 # Apps - AI

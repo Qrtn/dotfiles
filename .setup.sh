@@ -52,7 +52,16 @@ gh auth login
 yadm clone https://github.com/Qrtn/dotfiles
 
 # Install everything from Brewfile
-brew bundle --file=~/.Brewfile
+BREWFILE=~/Brewfile
+if [ ! -f "$BREWFILE" ]; then
+  BREWFILE=~/.Brewfile
+fi
+brew bundle --file="$BREWFILE"
+
+# Start Hammerspoon once so macOS can prompt for Accessibility when needed
+if [ -d /Applications/Hammerspoon.app ]; then
+  open -a Hammerspoon
+fi
 
 # Install Claude Code
 curl -fsSL https://claude.ai/install.sh | bash
