@@ -24,6 +24,12 @@ if [[ ! -f $_zim_update_file ]] || (( $(date +%s) - $(cat $_zim_update_file) > 6
   date +%s > $_zim_update_file
 fi
 unset _zim_update_file
+
+# Zim termtitle: current directory when idle, command when running.
+zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
+zstyle ':zim:termtitle:preexec' format '${${(Az)1}[1]}'
+zstyle ':zim:termtitle:precmd' format '%1~'
+
 function zvm_after_init() {
   bindkey '^[^?' backward-kill-word
 }

@@ -23,6 +23,3 @@ zmodule jeffreytse/zsh-vi-mode
 
 # Syntax highlighting (must be last)
 zmodule zsh-users/zsh-syntax-highlighting
-
-# Terminal title: current directory when idle, running command while busy.
-zstyle ':zim:termtitle' format '%1~'
