@@ -2,10 +2,15 @@ pcall(require, "hs.ipc")
 
 local hotkeyMods = { "ctrl", "alt", "cmd" }
 local hotkeyKey = "S"
+local captureMods = { "ctrl", "alt", "cmd", "shift" }
 
 -- Fallback click target relative to the top-left of Chrome's focused window.
 -- Adjust if Chrome's native vertical-tabs button is in a different spot.
 local fallbackOffset = { x = 34, y = 140 }
+local templatePath = hs.configdir .. "/assets/chrome-vertical-tabs-template.png"
+local templateCaptureSize = { w = 44, h = 44 }
+local matchThreshold = 0.78
+local searchRegion = { x = 0, y = 92, w = 96, h = 170 }
 
 local candidateNeedles = {
   "vertical tab",
@@ -15,12 +20,34 @@ local candidateNeedles = {
   "side panel",
 }
 
+local cachedMask = nil
+
 local function normalize(value)
   if type(value) ~= "string" then
     return ""
   end
 
   return string.lower(value)
+end
+
+local function brightness(color)
+  if type(color) ~= "table" then
+    return 0
+  end
+
+  local red = color.red or 0
+  local green = color.green or 0
+  local blue = color.blue or 0
+  return (red * 0.299) + (green * 0.587) + (blue * 0.114)
+end
+
+local function fileExists(path)
+  local attributes = hs.fs.attributes(path)
+  return attributes and attributes.mode == "file"
+end
+
+local function ensureAssetDir()
+  hs.fs.mkdir(hs.configdir .. "/assets")
 end
 
 local function elementText(element)
@@ -136,6 +163,134 @@ local function clickFallback(app)
   return true
 end
 
+local function loadTemplateMask()
+  if cachedMask then
+    return cachedMask
+  end
+
+  if not fileExists(templatePath) then
+    return nil
+  end
+
+  local image = hs.image.imageFromPath(templatePath)
+  if not image then
+    return nil
+  end
+
+  local size = image:size()
+  local points = {}
+  for y = 1, size.h, 2 do
+    for x = 1, size.w, 2 do
+      local color = image:colorAt({ x = x, y = y })
+      local alpha = color and color.alpha or 1
+      if alpha > 0.4 and brightness(color) > 0.62 then
+        table.insert(points, { x = x, y = y })
+      end
+    end
+  end
+
+  if #points < 12 then
+    return nil
+  end
+
+  cachedMask = {
+    size = size,
+    points = points,
+  }
+
+  return cachedMask
+end
+
+local function captureTemplate()
+  local screen = hs.mouse.getCurrentScreen() or hs.screen.mainScreen()
+  if not screen then
+    hs.alert.show("No screen available")
+    return
+  end
+
+  ensureAssetDir()
+
+  local mouse = hs.mouse.absolutePosition()
+  local rect = {
+    x = math.floor(mouse.x - (templateCaptureSize.w / 2)),
+    y = math.floor(mouse.y - (templateCaptureSize.h / 2)),
+    w = templateCaptureSize.w,
+    h = templateCaptureSize.h,
+  }
+
+  local image = screen:snapshot(rect)
+  if not image then
+    hs.alert.show("Template capture failed")
+    return
+  end
+
+  image:saveToFile(templatePath, "PNG")
+  cachedMask = nil
+  hs.alert.show("Template captured")
+end
+
+local function findTemplateMatch(app)
+  local mask = loadTemplateMask()
+  if not mask then
+    return nil
+  end
+
+  local win = app:focusedWindow()
+  if not win then
+    return nil
+  end
+
+  local frame = win:frame()
+  local screen = win:screen() or hs.screen.mainScreen()
+  if not screen then
+    return nil
+  end
+
+  local rect = {
+    x = math.floor(frame.x + searchRegion.x),
+    y = math.floor(frame.y + searchRegion.y),
+    w = searchRegion.w,
+    h = searchRegion.h,
+  }
+
+  local snapshot = screen:snapshot(rect)
+  if not snapshot then
+    return nil
+  end
+
+  local maxX = math.max(0, math.floor(rect.w - mask.size.w))
+  local maxY = math.max(0, math.floor(rect.h - mask.size.h))
+  local bestScore = 0
+  local bestPoint = nil
+
+  for y = 0, maxY, 2 do
+    for x = 0, maxX, 2 do
+      local hits = 0
+      for _, point in ipairs(mask.points) do
+        local color = snapshot:colorAt({ x = x + point.x, y = y + point.y })
+        if brightness(color) > 0.56 then
+          hits = hits + 1
+        end
+      end
+
+      local score = hits / #mask.points
+      if score > bestScore then
+        bestScore = score
+        bestPoint = {
+          x = rect.x + x + (mask.size.w / 2),
+          y = rect.y + y + (mask.size.h / 2),
+        }
+      end
+    end
+  end
+
+  if bestScore >= matchThreshold then
+    return bestPoint
+  end
+
+  return nil
+end
+
 local function toggleChromeVerticalTabs()
   local app = hs.application.get("Google Chrome")
   if not app then
@@ -151,6 +306,13 @@ local function toggleChromeVerticalTabs()
     if button and pressElement(button) then
       return
     end
+  end
+
+  local imagePoint = findTemplateMatch(app)
+  if imagePoint then
+    hs.mouse.absolutePosition(imagePoint)
+    hs.eventtap.leftClick(imagePoint)
+    return
   end
 
   if clickFallback(app) then
@@ -184,6 +346,7 @@ local function showCalibration()
 end
 
 hs.hotkey.bind(hotkeyMods, hotkeyKey, toggleChromeVerticalTabs)
-hs.hotkey.bind({ "ctrl", "alt", "cmd", "shift" }, hotkeyKey, showCalibration)
+hs.hotkey.bind(captureMods, hotkeyKey, captureTemplate)
+hs.hotkey.bind({ "ctrl", "alt", "cmd", "shift", "fn" }, hotkeyKey, showCalibration)
 
 hs.alert.show("Hammerspoon loaded")

@@ -24,6 +24,9 @@ if [[ ! -f $_zim_update_file ]] || (( $(date +%s) - $(cat $_zim_update_file) > 6
   date +%s > $_zim_update_file
 fi
 unset _zim_update_file
+function zvm_after_init() {
+  bindkey '^[^?' backward-kill-word
+}
 source ${ZIM_HOME}/init.zsh
 
 # Shell options
@@ -158,3 +161,11 @@ function scrape() {
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 export PATH="$HOME/.local/bin:$PATH"
 alias codex="codex --dangerously-bypass-approvals-and-sandbox"
+
+# pnpm
+export PNPM_HOME="/Users/jeffrey/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

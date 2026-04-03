@@ -6,6 +6,7 @@ zmodule romkatv/powerlevel10k --use degit
 # Core modules (order matters)
 zmodule environment
 zmodule input
+zmodule termtitle
 
 # Completion definitions (before completion module)
 zmodule zsh-users/zsh-completions --fpath src
@@ -22,3 +23,6 @@ zmodule jeffreytse/zsh-vi-mode
 
 # Syntax highlighting (must be last)
 zmodule zsh-users/zsh-syntax-highlighting
+
+# Terminal title: current directory when idle, running command while busy.
+zstyle ':zim:termtitle' format '%1~'
